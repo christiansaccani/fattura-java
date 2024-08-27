@@ -19,18 +19,18 @@ public class Intestatario {
         return "S".equals(this.azienda);
     }
     
-   public String isPiva() {
-    if (isAzienda()) {
-        if (identita.length() != 11) {
-            return "Errore";
+    public String isPiva() {
+        if (isAzienda()) {
+            if (identita.length() != 11) {
+                return "Errore";
+            }
+        } else {
+            if (identita.length() != 16) {
+                return "Errore";
+            }
         }
-    } else {
-        if (identita.length() != 16) {
-            return "Errore";
-        }
+        return identita;
     }
-    return identita;
-}
 
     public String getNome() {
         return nome;
@@ -63,4 +63,9 @@ public class Intestatario {
     public void setIdentita(String identita) {
         this.identita = identita;
     }
+
+    @Override
+    public String toString() {
+        return "Intestatario: " + "nome: " + nome + " | cognome:" + cognome + " | identità:" + identita + '}';
+    }   
 }
