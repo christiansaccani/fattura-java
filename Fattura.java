@@ -11,14 +11,14 @@ public class Fattura {
     private String modalita;  
 
     public Fattura(Intestatario i, String data, double ammontare, String modalita) {
-        intestatario = new Intestatario(i.getNome(),i.getCognome(),i.getAzienda(),i.getIdentita());
+        intestatario = new Intestatario(i.getNome());
         this.data = data;
         this.ammontare = ammontare;
         this.modalita = modalita;
     }
     
     public Fattura(Intestatario i, String data, String modalita) {
-        intestatario = new Intestatario(i.getNome(),i.getCognome(),i.getAzienda(),i.getIdentita());
+        intestatario = new Intestatario(i.getNome());
         this.prodotti = new ArrayList<Prodotto>();
         this.data = data;
         this.modalita = modalita;
@@ -57,11 +57,16 @@ public class Fattura {
     @Override
     public String toString() {
         try{
-              this.calcolaTotale();
-            return "Fattura: " + intestatario + " | prodotti:" + prodotti + " | data:" + data + " | ammontare:" + ammontare + " | modalita:" + modalita + '}';
+            this.calcolaTotale();
+            return "Fattura: " + intestatario + " | prodotti: " + prodotti + " | data: " + data + 
+            " | ammontare: " + (isNegativo() ? "errore" : ammontare) + 
+            " | modalita: " + (isNotOk() ? "errore" : modalita);
+
         }
         catch(NullPointerException e) {
-            return "Fattura: " + intestatario + " | data:" + data + " | ammontare:" + ammontare + " | modalita:" + modalita + '}';
+           return "Fattura: " + intestatario +  " | data: " + data + 
+            " | ammontare: " + (isNegativo() ? "errore" : ammontare) + 
+            " | modalita: " + (isNotOk() ? "errore" : modalita);
         }
     }
 }
