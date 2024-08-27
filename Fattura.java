@@ -44,7 +44,6 @@ public class Fattura {
             totale += prodotto.getCosto();
         }
         this.ammontare = Math.round(totale * 100.0) / 100.0;;
-  
     }
     
     public boolean isNegativo() {
@@ -53,16 +52,7 @@ public class Fattura {
     
     public boolean isNotOk() {
         return !modalita.equals("B") && !modalita.equals("C") && !modalita.equals("A");
-    }
-    
-   
-    public String toStringA() {
-        return "Fattura di: " + intestatario.getNome() + " "  + intestatario.getCognome() 
-                + " Data: " + data 
-                + " Ammontare: " + (isNegativo() ? "Non Valido" : "€ " + ammontare)
-                + " Modalità: " + (isNotOk() ? "Non Valido" : modalita)
-                + " Identità: " + intestatario.isPiva();
-    }
+    } 
 
     @Override
     public String toString() {
