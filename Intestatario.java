@@ -13,8 +13,15 @@ public class Intestatario {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+
+
+    String getUniqueValue(Intestatario i) {
+        if (i instanceof Fisico) {
+            return ((Fisico) i).getCodiceFiscale();
+        } else if (i instanceof Azienda) {
+            return ((Azienda) i).getPartitaIVA();
+        }
+        return null;
     }
 
     @Override
