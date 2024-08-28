@@ -7,25 +7,31 @@ public class FatturaTest {
 
         // ----- INTESTATARI ----- //
         
-        Intestatario i = new Fisico("Leonardo Bianchi", "BNCLRD99M01H501A");
+        Intestatario i1 = new Fisico("Leonardo Bianchi", "BNCLRD99M01H501A");
         Intestatario i2 = new Fisico("Pasquale Mazzocchi", "MZZPQL99M01H501X");
         Intestatario i3 = new Azienda("Rossi SRL", "10987654321");
         Intestatario i4 = new Fisico("Mario Rossi", "RSSMRA80A01H501Z");
         Intestatario i5 = new Azienda("Tech Srl", "12345678901");
-        
+        Intestatario i6 = new Fisico("Pasquale Mazzocchi", "MZZPQL99M01H501X");  //must be error
+
         ArrayList<Intestatario> listaIntestatari = new ArrayList<Intestatario>();
-        listaIntestatari.add(i);
-        listaIntestatari.add(i2);
-        listaIntestatari.add(i3);
-        listaIntestatari.add(i4);
-        listaIntestatari.add(i5);
-        
-        for (int y = 0; y < listaIntestatari.size(); y++) {
-            Intestatario intestatario = listaIntestatari.get(y);
-            if (intestatario instanceof Fisico) {
-                System.out.println("L'Intestatario " + (y+1) + " è un Fisico: " + ((Fisico) intestatario).getCodiceFiscale());
-            } else if (intestatario instanceof Azienda) {
-                System.out.println("L'Intestatario " + (y+1) + " è un'Azienda: " + ((Azienda) intestatario).getPartitaIVA());
+        ArrayList<String> valoriUnici = new ArrayList<String>();
+
+        // Aggiungi a lista solo se il valore unico non è presente nella lista dei valori unici
+
+        Intestatario[] intestatari = {i1, i2, i3, i4, i5, i6};
+        for (Intestatario intestatario : intestatari) {
+            String valoreUnico = intestatario.getUniqueValue(intestatario);
+            if (valoreUnico != null && !valoriUnici.contains(valoreUnico)) {
+                valoriUnici.add(valoreUnico);
+                listaIntestatari.add(intestatario);
+            }
+        }
+
+        for (Intestatario intestatario : listaIntestatari) {
+            String valoreUnico = intestatario.getUniqueValue(intestatario);
+            if (valoreUnico != null) {
+                System.out.println("ID: " + valoreUnico);
             }
         }
         
@@ -37,7 +43,7 @@ public class FatturaTest {
         
         // ----- FATTURE ----- //
         
-        Fattura f1 = new Fattura(i, "270824", 1456, "B");
+        Fattura f1 = new Fattura(i1, "270824", 1456, "B");
         Fattura f3 = new Fattura(i2, "290824", 4298, "C");
         Fattura f2 = new Fattura(i2, "290824", -4298, "C");
         Fattura f4 = new Fattura(i3, "280824", 5298, "Co");
